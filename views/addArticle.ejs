@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+  
+  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Article</title>
+    <script src="http://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <link href="http://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"></head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+.WebsiteName{
+  font-family:monospace;
+}
+</style>
+<body>
+ 
+  <header class="header page-header row bg-dark align-middle">
+    <h1 class="WebsiteName col-sm-8 text-light align-middle "><a href="/"class="text-light ">Article</a></h1>
+    <p>
+        <%if(user != null){%>
+            
+            <h5 class="col text-light align-middle"><a href="/logout"class="text-light">Logout</a></h5>
+        <%}else{%>
+            <h5 class="col align-middle"><a href="/singup"class="text-light">sign in</a></h5>
+            <h5 class="col text-light .align-baseline"> <a href="/login" class="text-light">Log in</a></h5>
+        <%}%>
+        </p>
+    </header>
+<div>
+    <p>Title</p>
+    <input type="text" id="title">
+    <p>subtitle</p>
+    <input type="text" id="subtitle">
+    <div id="editor">
+
+    </div>
+
+</div>
+<button onclick="run()">submit</button>    
+
+<script>
+  var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block' , 'image'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']                                         // remove formatting button
+];
+    let quillCointiner = document.getElementById('editor');
+    var quill = new Quill(quillCointiner, {
+  modules: {
+    toolbar: toolbarOptions
+  },
+  theme: 'snow'
+});
+
+async function run(){
+  let body = (JSON.stringify( quill.getContents()));
+  let title = document.getElementById('title').value;
+  let subtitle = document.getElementById('subtitle').value;
+  let data = {title , subtitle , body};
+  console.log(data);
+
+  let option = {
+    method:'POST',
+    body:JSON.stringify(data),
+    redirect:'follow',
+    headers:{
+      'Content-Type':'application/json'
+    }
+  }
+  const response = await fetch('/add' , option);
+  window.location.href = response.url;
+}
+</script>
+</body>
+</html>

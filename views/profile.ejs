@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= user.name %> on Articles</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+        <header class="header page-header row bg-dark align-middle">
+                <h1 class="WebsiteName col-sm-8 text-light align-middle "><a href="/"class="text-light ">Article</a></h1>
+                <p>
+                    <%if(user != null){%>
+                        <h5 class="col text-light align-middle"><a href="/add"class="text-light">Create new Article</a></h5>
+                        <h5 class="col text-light align-middle"><a href="/logout"class="text-light">Logout</a></h5>
+                    <%}else{%>
+                        <h5 class="col align-middle"><a href="/singup"class="text-light">sign in</a></h5>
+                        <h5 class="col text-light .align-baseline"> <a href="/login" class="text-light">Log in</a></h5>
+                    <%}%>
+                    </p>
+                </header>
+    <div>
+        <h2 class="text-center font-weight-bold">
+           <%=user.name%>
+            
+        </h2>
+
+    </div>
+    <div>
+    <% for(let i = 0 ; i<data.length ; i++){ %>
+        <div>
+        <a href=<%="/show/" + data[i].id%> ><h3><%=data[i].title %></h3></a>
+        <h5><%= data[i].subtitle%></h5>
+    </div>
+        <% } %>
+
+</div>
+    
+</body>
+<style>
+        .WebsiteName{
+          font-family:monospace;
+        }
+        </style>
+</html>

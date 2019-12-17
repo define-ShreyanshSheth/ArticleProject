@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <!-- <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <link href="http://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    
+
+    <style>
+    img{
+        
+        max-width:50%;
+    }
+    </style>
+    <title>all docs</title>
+</head>
+<body>
+    
+    <header class="header page-header row bg-dark align-middle">
+        <h1 class="WebsiteName col-sm-8 text-light align-middle "><a href="/"class="text-light ">Article</a></h1>
+        <p>
+            <%if(user != null){%>
+                <h5 class="col text-light align-middle"><a href="/add"class="text-light">Create new Article</a></h5>
+                <h5 class="col text-light align-middle"><a href="/logout"class="text-light">Logout</a></h5>
+            <%}else{%>
+                <h5 class="col align-middle"><a href="/singup"class="text-light">sign in</a></h5>
+                <h5 class="col text-light .align-baseline"> <a href="/login" class="text-light">Log in</a></h5>
+            <%}%>
+            </p>
+        </header>
+       <div>
+
+            <h1 class="text-center"><%=data.title%></h1></a>
+            <h2 class="text-center"><%=data.subtitle%></h2>
+           <p>author:<a href=<%="/user/"+ data.authorid %>><%=data.author%></a></p>
+           <p>Views<%=data.views%></p>
+           
+            <p hidden id="data"><%=data.data%></p>
+            <div id="quill"></div>
+            </div>
+            
+        <hr>
+        <%if(sameuser){%>
+            
+          <button onclick="deletethis()"  class="delete"> Delete this article</button>  
+        
+          <%}%>
+        <!-- <script src="js/showquill.js"></script> -->
+    <script>
+        let quill = document.getElementById("quill");
+        let data = document.getElementById("data");
+        
+function showquill(data , editors){
+    // let editors = document.getElementsByClassName('quilldata');
+    // let data = document.getElementsByClassName('data')
+        let length = editors.length;
+        for(let i = 0 ; i<length ; i++) {
+               let text = data[i].innerText;
+               console.log(JSON.parse(text));
+                let quill = new Quill(editors[i] ,  { modules: {toolbar:false}, theme: 'snow'});
+                quill.setContents(JSON.parse(text));
+                quill.disable();
+        }
+}
+        showquill([data] , [quill]);
+    </script>
+
+
+<script>
+    async function deletethis(){
+        let url = window.location.href;
+        url = url.split('/');
+        url = url[url.length - 1];
+        data = {id : url};
+        let option = {
+method:'POST',
+body:JSON.stringify(data),
+redirect:'follow',
+headers:{
+  'Content-Type':'application/json'
+}
+}
+const response = await fetch(`/delete` , option);
+window.location.href = '/';
+    }
+    </script>
+</body>
+<style>
+        .WebsiteName{
+          font-family:monospace;
+        }
+        
+        </style>
+</html>

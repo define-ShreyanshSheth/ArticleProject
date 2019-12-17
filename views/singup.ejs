@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sing-up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script>
+           function encodeImageFileAsURL(element) {
+  var file = element.files[0];
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    console.log('RESULT', reader.result)
+    document.getElementById("pic").src = reader.result;
+  }
+  
+}
+            </script>  
+</head>
+<body>
+   
+    <header class="header page-header row bg-dark align-middle">
+        <h1 class="WebsiteName col-sm-8 text-light align-middle "><a href="/"class="text-light ">Article</a></h1>
+        <p>
+           
+             
+               
+                <h5 class="col text-light .align-baseline"> <a href="/login" class="text-light">Log in</a></h5>
+            
+            </p>
+        </header>
+<form method="POST"  action="/singup">
+
+        <div class="d-flex mx-auto justify-content-center mt-100  " >
+  <div class=" my-auto "><div>
+<label for="name">Name</label><br>
+<input type='text'name="name"class = "w-100" id="name">
+</div ><div>
+<label for="email">Email</label><br>
+<input type='email'name="email" class = "w-100"id="email">
+</div class=" my-auto"><div>
+<label for="password">password</label><br>
+<input type='password' class = "w-100"name="password"id="password">
+</div class=" my-auto"><div>
+
+  <br>
+  <br>
+<input type="submit" class="align-items-center text-center w-100"value="sing-in" >
+</div>
+</div>
+</div>
+</form>
+<style>
+    .WebsiteName{
+      font-family:monospace;
+    }
+    </style>
+</body>
+
+</html>

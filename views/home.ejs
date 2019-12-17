@@ -1,0 +1,32 @@
+<body>
+        <style>
+                .WebsiteName{
+                  font-family:monospace;
+                }
+                </style>
+       
+        <header class="header page-header row bg-dark align-middle">
+            <h1 class="WebsiteName col-sm-8 text-light align-middle "><a href="/"class="text-light ">Article</a></h1>
+            <p>
+                <%if(user != null){%>
+                    <h5 class="col text-light align-middle"><a href="/add"class="text-light">Create new Article</a></h5>
+                    <h5 class="col text-light align-middle"><a href="/logout"class="text-light">Logout</a></h5>
+                <%}else{%>
+                    <h5 class="col align-middle"><a href="/singup"class="text-light">sign in</a></h5>
+                    <h5 class="col text-light .align-baseline"> <a href="/login" class="text-light">Log in</a></h5>
+                <%}%>
+                </p>
+            </header>
+        <H2 class="text-center font-weight-bold ">Here Are Some Top Articles</H2>
+        <hr>
+        <% for(let i = 0 ; i<data.length ; i++){%>
+            <div><a href="show/<%=data[i]._id%>">
+                <h1><%=data[i].title%></h1></a>
+                <h2><%=data[i].subtitle%></h2>
+                <p>Views:<%=data[i].views%></p>
+                </div>
+            <hr>
+        <%}%>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                
+    </body>
